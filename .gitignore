@@ -5,6 +5,9 @@ node_modules
 out
 dist
 *.tgz
+target
+output
+*.node
 
 # code coverage
 coverage
