@@ -1,6 +1,6 @@
 # Project Guidelines
 
-This project is a CLI tool written in Rust, designed to provide a seamless experience when creating and managing icons 
+This project is a CLI tool written in Rust, designed to provide a seamless experience when creating and managing icons for various purposes (like generating icons for a web, mobile or desktop applications from a single source).
 
 ## Rules
 
