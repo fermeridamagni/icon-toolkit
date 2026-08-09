@@ -20,7 +20,9 @@ The project follows a modular architecture pattern, with clear separation of con
 ```txt
 .
 ├── docs/                         # Documentation Page (Astro v7 - Starlight)
+├── skills/                       # Built-in Agent Skills
 ├── package/                      # Typescript package source code
+├── crates/                       # Rust crates source code
 ├── cli/                          # Rust CLI tool source code
 ├── tests/                        # Test cases for the project
 ```
