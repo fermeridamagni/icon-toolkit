@@ -22,4 +22,5 @@ The project follows a modular architecture pattern, with clear separation of con
 ├── docs/                         # Documentation Page (Astro v7 - Starlight)
 ├── package/                      # Typescript package source code
 ├── cli/                          # Rust CLI tool source code
+├── tests/                        # Test cases for the project
 ```
