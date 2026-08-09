@@ -1,0 +1,14 @@
+{
+  "name": "icon-toolkit",
+  "private": true,
+  "scripts": {
+    "check": "ultracite check",
+    "fix": "ultracite fix"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.6",
+    "@types/bun": "^1.3.14",
+    "typescript": "^7.0.2",
+    "ultracite": "7.10.2"
+  }
+}
