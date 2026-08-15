@@ -18,10 +18,7 @@ pub enum IconToolkitError {
 
     /// Error encountered during image encoding.
     #[error("Failed to encode image to format '{format}': {message}")]
-    ImageEncode {
-        format: String,
-        message: String,
-    },
+    ImageEncode { format: String, message: String },
 
     /// Error during ICO multi-resolution file construction.
     #[error("ICO encoding error: {0}")]
@@ -41,10 +38,7 @@ pub enum IconToolkitError {
 
     /// AI provider HTTP request or response parsing error.
     #[error("AI Service Error ({provider}): {message}")]
-    AiService {
-        provider: String,
-        message: String,
-    },
+    AiService { provider: String, message: String },
 
     /// Invalid configuration options or input values.
     #[error("Invalid configuration: {0}")]

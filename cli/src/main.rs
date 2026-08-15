@@ -41,7 +41,12 @@ enum Commands {
         dark_input: Option<PathBuf>,
 
         /// Targets to generate: web, mobile, desktop, or all
-        #[arg(short, long, value_delimiter = ',', default_value = "web,mobile,desktop")]
+        #[arg(
+            short,
+            long,
+            value_delimiter = ',',
+            default_value = "web,mobile,desktop"
+        )]
         target: Vec<String>,
 
         /// Theme mode selection: light, dark, or both

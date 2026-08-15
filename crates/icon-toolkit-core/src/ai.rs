@@ -6,9 +6,7 @@
 
 use crate::error::{IconToolkitError, Result};
 use crate::generator::generate_icons;
-use crate::types::{
-    AiGeneratorOptions, AiGeneratorResult, AiProvider, IconGeneratorOptions, Mode,
-};
+use crate::types::{AiGeneratorOptions, AiGeneratorResult, AiProvider, IconGeneratorOptions, Mode};
 use base64::Engine;
 use reqwest::Client;
 use serde_json::{json, Value};
@@ -52,7 +50,10 @@ pub async fn generate_ai_icon(options: &AiGeneratorOptions) -> Result<AiGenerato
                 &client,
                 &enhanced_prompt,
                 options.api_key.as_deref(),
-                options.model.as_deref().unwrap_or("imagen-3.0-generate-002"),
+                options
+                    .model
+                    .as_deref()
+                    .unwrap_or("imagen-3.0-generate-002"),
             )
             .await?
         }
@@ -176,12 +177,13 @@ async fn fetch_openai_image(
         message: format!("Failed to parse response JSON: {}", e),
     })?;
 
-    let b64 = json_res["data"][0]["b64_json"]
-        .as_str()
-        .ok_or_else(|| IconToolkitError::AiService {
-            provider: "OpenAI".to_string(),
-            message: "Response did not contain b64_json image payload".to_string(),
-        })?;
+    let b64 =
+        json_res["data"][0]["b64_json"]
+            .as_str()
+            .ok_or_else(|| IconToolkitError::AiService {
+                provider: "OpenAI".to_string(),
+                message: "Response did not contain b64_json image payload".to_string(),
+            })?;
 
     base64::engine::general_purpose::STANDARD
         .decode(b64)
@@ -244,12 +246,13 @@ async fn fetch_stability_image(
         message: format!("Failed to parse JSON response: {}", e),
     })?;
 
-    let b64 = json_res["artifacts"][0]["base64"]
-        .as_str()
-        .ok_or_else(|| IconToolkitError::AiService {
-            provider: "Stability AI".to_string(),
-            message: "Response did not contain artifact image payload".to_string(),
-        })?;
+    let b64 =
+        json_res["artifacts"][0]["base64"]
+            .as_str()
+            .ok_or_else(|| IconToolkitError::AiService {
+                provider: "Stability AI".to_string(),
+                message: "Response did not contain artifact image payload".to_string(),
+            })?;
 
     base64::engine::general_purpose::STANDARD
         .decode(b64)
@@ -290,15 +293,16 @@ async fn fetch_gemini_image(
         }
     });
 
-    let res = client
-        .post(&url)
-        .json(&body)
-        .send()
-        .await
-        .map_err(|e| IconToolkitError::AiService {
-            provider: "Gemini".to_string(),
-            message: e.to_string(),
-        })?;
+    let res =
+        client
+            .post(&url)
+            .json(&body)
+            .send()
+            .await
+            .map_err(|e| IconToolkitError::AiService {
+                provider: "Gemini".to_string(),
+                message: e.to_string(),
+            })?;
 
     if !res.status().is_success() {
         let err_text = res.text().await.unwrap_or_default();
@@ -385,23 +389,21 @@ async fn fetch_generic_openai_image(
             })
     } else if let Some(url) = json_res["data"][0]["url"].as_str() {
         // Download image from URL
-        let img_res =
-            client
-                .get(url)
-                .send()
-                .await
-                .map_err(|e| IconToolkitError::AiService {
-                    provider: "Generic OpenAI".to_string(),
-                    message: format!("Failed to fetch image from URL: {}", e),
-                })?;
-        let bytes =
-            img_res
-                .bytes()
-                .await
-                .map_err(|e| IconToolkitError::AiService {
-                    provider: "Generic OpenAI".to_string(),
-                    message: format!("Failed to read image bytes: {}", e),
-                })?;
+        let img_res = client
+            .get(url)
+            .send()
+            .await
+            .map_err(|e| IconToolkitError::AiService {
+                provider: "Generic OpenAI".to_string(),
+                message: format!("Failed to fetch image from URL: {}", e),
+            })?;
+        let bytes = img_res
+            .bytes()
+            .await
+            .map_err(|e| IconToolkitError::AiService {
+                provider: "Generic OpenAI".to_string(),
+                message: format!("Failed to read image bytes: {}", e),
+            })?;
         Ok(bytes.to_vec())
     } else {
         Err(IconToolkitError::AiService {

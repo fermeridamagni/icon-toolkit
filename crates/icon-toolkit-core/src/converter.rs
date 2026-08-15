@@ -63,11 +63,8 @@ pub fn convert_image(options: &ConvertOptions) -> Result<ConvertResult> {
         let (orig_w, orig_h) = dynamic_img.dimensions();
         let target_w = options.width.unwrap_or(orig_w);
         let target_h = options.height.unwrap_or(orig_h);
-        dynamic_img = dynamic_img.resize_exact(
-            target_w,
-            target_h,
-            image::imageops::FilterType::Triangle,
-        );
+        dynamic_img =
+            dynamic_img.resize_exact(target_w, target_h, image::imageops::FilterType::Triangle);
     }
 
     // Apply background color fill if requested
@@ -129,9 +126,8 @@ pub fn render_svg_to_image(
     })?;
 
     let opt = usvg::Options::default();
-    let tree = usvg::Tree::from_data(&svg_data, &opt).map_err(|e| {
-        IconToolkitError::SvgProcessing(format!("Failed to parse SVG file: {}", e))
-    })?;
+    let tree = usvg::Tree::from_data(&svg_data, &opt)
+        .map_err(|e| IconToolkitError::SvgProcessing(format!("Failed to parse SVG file: {}", e)))?;
 
     let orig_size = tree.size();
     let (width, height) = match (target_width, target_height) {

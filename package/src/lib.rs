@@ -88,7 +88,11 @@ pub fn generate_icons(options: JsIconGeneratorOptions) -> Result<JsGeneratorResu
         dark_input_path: options.dark_input_path.map(PathBuf::from),
         targets,
         mode: Mode::from_str_val(options.mode.as_deref().unwrap_or("light")),
-        output_dir: PathBuf::from(options.output_dir.unwrap_or_else(|| "output/icons".to_string())),
+        output_dir: PathBuf::from(
+            options
+                .output_dir
+                .unwrap_or_else(|| "output/icons".to_string()),
+        ),
         padding_percent: options.padding_percent.unwrap_or(0),
         background_color: options.background_color,
         border_radius_percent: options.border_radius_percent.unwrap_or(0),
@@ -152,7 +156,11 @@ pub async fn generate_ai_icon(options: JsAiGeneratorOptions) -> Result<JsAiGener
         model: options.model,
         size: options.size.unwrap_or(1024),
         quality: options.quality.unwrap_or_else(|| "standard".to_string()),
-        output_path: PathBuf::from(options.output_path.unwrap_or_else(|| "output/ai-icon.png".to_string())),
+        output_path: PathBuf::from(
+            options
+                .output_path
+                .unwrap_or_else(|| "output/ai-icon.png".to_string()),
+        ),
         auto_generate_targets: targets,
     };
 

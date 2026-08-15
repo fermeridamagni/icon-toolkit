@@ -189,8 +189,11 @@ fn process_icon(
         size
     };
 
-    let resized_source =
-        source.resize_exact(inner_size, inner_size, image::imageops::FilterType::Triangle);
+    let resized_source = source.resize_exact(
+        inner_size,
+        inner_size,
+        image::imageops::FilterType::Triangle,
+    );
 
     // Create target transparent canvas
     let mut canvas: RgbaImage = ImageBuffer::new(size, size);
@@ -226,7 +229,7 @@ fn process_icon(
 fn apply_border_radius(img: &DynamicImage, radius_percent: u32) -> Result<DynamicImage> {
     let rgba = img.to_rgba8();
     let (width, height) = rgba.dimensions();
-    let radius = (width.min(height) as f32 * (radius_percent.min(50) as f32 / 100.0)) as f32;
+    let radius = width.min(height) as f32 * (radius_percent.min(50) as f32 / 100.0);
 
     let mut masked: RgbaImage = ImageBuffer::new(width, height);
 
@@ -349,7 +352,7 @@ fn generate_web_target(
     serde_json::to_writer_pretty(BufWriter::new(manifest_file), &manifest).map_err(|e| {
         IconToolkitError::Io {
             path: manifest_path.display().to_string(),
-            source: std::io::Error::new(std::io::ErrorKind::Other, e),
+            source: std::io::Error::other(e),
         }
     })?;
     created.push(manifest_path.display().to_string());
@@ -427,7 +430,7 @@ fn generate_mobile_target(
     serde_json::to_writer_pretty(BufWriter::new(c_file), &contents_json).map_err(|e| {
         IconToolkitError::Io {
             path: contents_path.display().to_string(),
-            source: std::io::Error::new(std::io::ErrorKind::Other, e),
+            source: std::io::Error::other(e),
         }
     })?;
     created.push(contents_path.display().to_string());
