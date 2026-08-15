@@ -1,0 +1,23 @@
+{
+  "skill_name": "icon-toolkit",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Generate web and mobile icons from demo-icon.png with 5% padding and a white background, saved in output/test-icons-web-mobile",
+      "expected_output": "Web and mobile icon sets generated in output/test-icons-web-mobile including favicon.ico, android mipmaps, and iOS AppIcon set",
+      "files": ["demo-icon.png"]
+    },
+    {
+      "id": 1,
+      "prompt": "Convert demo-icon.png to WebP format with custom width 256 and height 256 and quality 85 saving to output/demo-256.webp",
+      "expected_output": "Converted image saved at output/demo-256.webp with 256x256 dimensions",
+      "files": ["demo-icon.png"]
+    },
+    {
+      "id": 2,
+      "prompt": "Create desktop icon sets for both light and dark mode from demo-icon.png with 10% border radius in output/desktop-icons",
+      "expected_output": "Light and dark mode desktop icons generated in output/desktop-icons with macOS .icns, Windows app.ico, and Linux hicolor PNGs",
+      "files": ["demo-icon.png"]
+    }
+  ]
+}
