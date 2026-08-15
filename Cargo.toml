@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/icon-toolkit-core",
+    "cli",
+    "package",
+]

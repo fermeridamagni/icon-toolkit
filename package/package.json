@@ -1,0 +1,26 @@
+{
+  "name": "icon-toolkit",
+  "version": "0.1.0",
+  "description": "High performance Rust CLI and TypeScript API for icon set generation, format conversion, and AI icon synthesis",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "icon-toolkit": "cli.js"
+  },
+  "scripts": {
+    "build": "bun x @napi-rs/cli build --platform --release",
+    "build:debug": "bun x @napi-rs/cli build --platform"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.0.0",
+    "@types/bun": "^1.3.14",
+    "typescript": "^7.0.2",
+    "ultracite": "7.10.2"
+  },
+  "napi": {
+    "name": "icon-toolkit-napi",
+    "triple": {
+      "defaults": true
+    }
+  }
+}

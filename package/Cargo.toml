@@ -1,0 +1,18 @@
+[package]
+name = "icon-toolkit-napi"
+version = "0.1.0"
+edition = "2021"
+description = "NAPI-RS native bindings for icon-toolkit"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "2.16", default-features = false, features = ["async", "napi4", "serde-json"] }
+napi-derive = "2.16"
+icon-toolkit-core = { path = "../crates/icon-toolkit-core" }
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+
+[build-dependencies]
+napi-build = "2.1"
