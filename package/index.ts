@@ -134,8 +134,21 @@ function loadNativeBinding(): NativeBinding {
     join(import.meta.dirname, "icon-toolkit-napi.darwin-x64.node"),
     join(import.meta.dirname, "icon-toolkit-napi.linux-x64-gnu.node"),
     join(import.meta.dirname, "icon-toolkit-napi.win32-x64-msvc.node"),
+    join(import.meta.dirname, "dist", "icon-toolkit-napi.node"),
+    join(import.meta.dirname, "dist", "icon-toolkit-napi.darwin-arm64.node"),
+    join(import.meta.dirname, "dist", "icon-toolkit-napi.darwin-x64.node"),
+    join(import.meta.dirname, "dist", "icon-toolkit-napi.linux-x64-gnu.node"),
+    join(import.meta.dirname, "dist", "icon-toolkit-napi.win32-x64-msvc.node"),
     join(import.meta.dirname, "index.node"),
+    join(import.meta.dirname, "dist", "index.node"),
     join(import.meta.dirname, "..", "icon-toolkit-napi.node"),
+    join(import.meta.dirname, "..", "dist", "icon-toolkit-napi.node"),
+    join(
+      import.meta.dirname,
+      "..",
+      "dist",
+      "icon-toolkit-napi.darwin-arm64.node"
+    ),
     join(
       import.meta.dirname,
       "..",
@@ -164,6 +177,38 @@ function loadNativeBinding(): NativeBinding {
       "debug",
       "libicon_toolkit_napi.dylib"
     ),
+    join(
+      import.meta.dirname,
+      "..",
+      "..",
+      "target",
+      "release",
+      "libicon_toolkit_napi.dylib"
+    ),
+    join(
+      import.meta.dirname,
+      "..",
+      "..",
+      "target",
+      "release",
+      "libicon_toolkit_napi.so"
+    ),
+    join(
+      import.meta.dirname,
+      "..",
+      "..",
+      "target",
+      "release",
+      "icon_toolkit_napi.dll"
+    ),
+    join(
+      import.meta.dirname,
+      "..",
+      "..",
+      "target",
+      "debug",
+      "libicon_toolkit_napi.dylib"
+    ),
   ];
 
   for (const p of possiblePaths) {
@@ -180,13 +225,18 @@ function loadNativeBinding(): NativeBinding {
   }
 
   try {
-    nativeBinding = require("./index.node");
+    nativeBinding = require("./icon-toolkit-napi.node");
     return nativeBinding as NativeBinding;
-  } catch (e) {
-    throw new Error(
-      "Failed to load icon-toolkit native binary. Please run 'bun run build' inside package/ directory.",
-      { cause: e }
-    );
+  } catch {
+    try {
+      nativeBinding = require("./index.node");
+      return nativeBinding as NativeBinding;
+    } catch (e) {
+      throw new Error(
+        "Failed to load icon-toolkit native binary. Please run 'bun run build' inside package/ directory.",
+        { cause: e }
+      );
+    }
   }
 }
 

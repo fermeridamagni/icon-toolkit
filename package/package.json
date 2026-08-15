@@ -19,23 +19,20 @@
     "url": "git+https://github.com/fermeridamagni/icon-toolkit.git"
   },
   "license": "GPL-3.0",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "icon-toolkit": "cli.js",
-    "icontk": "cli.js"
+    "icon-toolkit": "dist/cli.js",
+    "icontk": "dist/cli.js"
   },
   "files": [
-    "index.js",
-    "index.d.ts",
-    "cli.js",
-    "*.node",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "bun x @napi-rs/cli build --platform --release && bun build index.ts --outfile index.js --target node && bun build cli.ts --outfile cli.js --target node && bun x tsc index.ts --declaration --emitDeclarationOnly --target es2022 --module esnext --types @types/bun",
-    "build:debug": "bun x @napi-rs/cli build --platform"
+    "build": "bun x @napi-rs/cli build --platform --release --output-dir dist && bun build index.ts --outfile dist/index.js --target node && bun build cli.ts --outfile dist/cli.js --target node && bun x tsc",
+    "build:debug": "bun x @napi-rs/cli build --platform --output-dir dist && bun build index.ts --outfile dist/index.js --target node && bun build cli.ts --outfile dist/cli.js --target node && bun x tsc"
   },
   "devDependencies": {
     "@napi-rs/cli": "^3.0.0",
@@ -44,7 +41,7 @@
     "ultracite": "7.10.2"
   },
   "napi": {
-    "name": "icon-toolkit-napi",
+    "binaryName": "icon-toolkit-napi",
     "triple": {
       "defaults": true
     }
