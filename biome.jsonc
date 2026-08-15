@@ -9,7 +9,9 @@
       "biome.jsonc",
       "!**/.agents",
       "!**/target",
-      "!**/output"
+      "!**/output",
+      "!package/*.js",
+      "!package/*.d.ts"
     ]
   }
 }

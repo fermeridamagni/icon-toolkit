@@ -2,6 +2,7 @@
   "name": "icon-toolkit",
   "private": true,
   "scripts": {
+    "build": "cd package && bun run build",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },
